@@ -10,6 +10,7 @@ public class LoadingState extends State {
     }
 
     private void loadAssets() {
+        getAssets().loadTexture("texture/bullet.png", "bullet_tex");
         getAssets().loadTexture("texture/enemy.png", "enemy_tex");
         getAssets().loadTexture("texture/player.png", "player_tex");
 
