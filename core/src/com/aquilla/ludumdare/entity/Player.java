@@ -15,7 +15,7 @@ public class Player extends Entity {
 
     public Player(float x, float y) {
         super(x, y, 16, 16);
-        setTexture(Assets.getInstance().getTexture("player_down_tex"));
+        setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_down"));
         bullets = new Array<>();
         attackTimer = ATTACK_COOLDOWN;
         dir = Direction.DOWN;
@@ -36,16 +36,16 @@ public class Player extends Entity {
 
         switch (dir) {
             case DOWN:
-                setTexture(Assets.getInstance().getTexture("player_down_tex"));
+                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_down"));
                 break;
             case UP:
-                setTexture(Assets.getInstance().getTexture("player_up_tex"));
+                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_up"));
                 break;
             case LEFT:
-                setTexture(Assets.getInstance().getTexture("player_left_tex"));
+                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_left"));
                 break;
             case RIGHT:
-                setTexture(Assets.getInstance().getTexture("player_right_tex"));
+                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_right"));
                 break;
         }
 

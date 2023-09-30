@@ -12,10 +12,7 @@ public class LoadingState extends State {
     private void loadAssets() {
         getAssets().loadTexture("texture/bullet.png", "bullet_tex");
         getAssets().loadTexture("texture/enemy.png", "enemy_tex");
-        getAssets().loadTexture("texture/player_up.png", "player_up_tex");
-        getAssets().loadTexture("texture/player_down.png", "player_down_tex");
-        getAssets().loadTexture("texture/player_left.png", "player_left_tex");
-        getAssets().loadTexture("texture/player_right.png", "player_right_tex");
+        getAssets().loadTextureAtlas("texture/player.atlas", "player_tex");
 
 
         getAssets().loadTiledMap("tilemap/test_map.tmx", "test_map");

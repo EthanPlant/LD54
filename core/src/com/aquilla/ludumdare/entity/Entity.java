@@ -1,11 +1,12 @@
 package com.aquilla.ludumdare.entity;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    private Texture texture;
+    private TextureRegion texture;
     private final Vector2 pos;
     private Vector2 vel;
     private final Rectangle hitBox;
@@ -22,11 +23,15 @@ public abstract class Entity {
     }
 
 
-    public Texture getTexture() {
+    public TextureRegion getTexture() {
         return texture;
     }
 
     public void setTexture(Texture texture) {
+        this.texture = new TextureRegion(texture);
+    }
+
+    public void setTexture(TextureRegion texture) {
         this.texture = texture;
     }
 

@@ -3,6 +3,8 @@ package com.aquilla.ludumdare.assets;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -38,6 +40,16 @@ public class Assets {
 
     public Texture getTexture(String name) {
         return manager.get(map.get(name), Texture.class);
+    }
+
+    public void loadTextureAtlas(String filename, String name) {
+        manager.load(filename, TextureAtlas.class);
+        map.put(name, filename);
+    }
+
+    public TextureRegion getRegionFromTextureAtlas(String atlas, String region) {
+        TextureAtlas textureAtlas = manager.get(map.get(atlas), TextureAtlas.class);
+        return textureAtlas.findRegion(region);
     }
 
     public void loadTiledMap(String filename, String name) {
