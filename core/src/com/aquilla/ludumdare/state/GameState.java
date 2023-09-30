@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class GameState extends State {
@@ -52,6 +53,19 @@ public class GameState extends State {
         }
 
         player.update(delta);
+        for (Enemy e : enemies) {
+            Vector2 dir = player.getPos().cpy().sub(e.getPos()).nor();
+            Vector2 vel = dir.cpy();
+            for (int i = 0; i < enemies.size; i++) {
+                Enemy e2 = enemies.get(i);
+                if (e != e2) {
+                    Vector2 edir = e2.getPos().cpy().sub(e.getPos()).nor();
+                    vel.sub(edir.scl(500 / e.getPos().dst2(e2.getPos()))).nor();
+                }
+            }
+            e.setVel(vel.scl(e.getSpeed()));
+            e.update(delta);
+        }
     }
 
     @Override
