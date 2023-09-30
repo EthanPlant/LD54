@@ -1,6 +1,7 @@
 package com.aquilla.ludumdare.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,7 +16,7 @@ public class Assets {
 
     private Assets() {
         manager = new AssetManager();
-        manager.setLoader(TiledMap.class, new TmxMapLoader());
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         map = new HashMap<>();
     }
 
