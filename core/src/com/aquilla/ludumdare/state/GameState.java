@@ -1,6 +1,7 @@
 package com.aquilla.ludumdare.state;
 
 import com.aquilla.ludumdare.LudumDare;
+import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.input.InputManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,6 +15,8 @@ public class GameState extends State {
 
     private final InputManager inputManager;
 
+    private final Player player;
+
     public GameState(LudumDare game) {
         super(game);
 
@@ -22,13 +25,25 @@ public class GameState extends State {
 
         inputManager = new InputManager();
         Gdx.input.setInputProcessor(inputManager);
+
+        player = new Player(getCam().position.x, getCam().position.y, 16, 16);
     }
 
     @Override
     public void update(float delta) {
         if (inputManager.isUp()) {
-            Gdx.app.log("Game", "Up");
+            player.setVel(0, Player.PLAYER_SPEED);
+        } else if (inputManager.isDown()) {
+            player.setVel(0, -Player.PLAYER_SPEED);
+        } else if (inputManager.isLeft()) {
+            player.setVel(-Player.PLAYER_SPEED, 0);
+        } else if (inputManager.isRight()) {
+            player.setVel(Player.PLAYER_SPEED, 0);
+        } else {
+            player.setVel(0, 0);
         }
+
+        player.update(delta);
     }
 
     @Override
@@ -37,6 +52,7 @@ public class GameState extends State {
         mapRenderer.setView(getCam());
         getGame().getBatch().begin();
         mapRenderer.render();
+        getGame().getBatch().draw(player.getTexture(), player.getPos().x, player.getPos().y);
         getGame().getBatch().end();
     }
 }

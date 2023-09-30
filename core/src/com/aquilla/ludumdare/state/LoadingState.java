@@ -10,6 +10,8 @@ public class LoadingState extends State {
     }
 
     private void loadAssets() {
+        getAssets().loadTexture("texture/player.png", "player_tex");
+
         getAssets().loadTiledMap("tilemap/test_map.tmx", "test_map");
     }
 

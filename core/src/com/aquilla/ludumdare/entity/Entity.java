@@ -1,11 +1,11 @@
 package com.aquilla.ludumdare.entity;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
-    private Sprite sprite;
+    private Texture texture;
     private final Vector2 pos;
     private Vector2 vel;
     private final Rectangle hitBox;
@@ -18,12 +18,16 @@ public abstract class Entity {
 
     public void update(float delta) {
         pos.add(vel.cpy().scl(delta));
-        hitBox.setPosition(pos);
+        //hitBox.setPosition(pos);
     }
 
 
-    public Sprite getSprite() {
-        return sprite;
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 
     public Vector2 getPos() {
@@ -36,6 +40,10 @@ public abstract class Entity {
 
     public void setVel(Vector2 vel) {
         this.vel = vel;
+    }
+
+    public void setVel(float x, float y) {
+        vel = new Vector2(x, y);
     }
 
     public Rectangle getHitBox() {
