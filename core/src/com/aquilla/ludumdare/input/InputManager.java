@@ -9,6 +9,7 @@ public class InputManager implements InputProcessor {
     private boolean right;
     private boolean up;
     private boolean down;
+    private boolean shoot;
 
     public boolean isLeft() {
         return left;
@@ -26,6 +27,10 @@ public class InputManager implements InputProcessor {
         return down;
     }
 
+    public boolean isShooting() {
+        return shoot;
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -40,6 +45,9 @@ public class InputManager implements InputProcessor {
                 return true;
             case Input.Keys.D:
                 right = true;
+                return true;
+            case Input.Keys.SPACE:
+                shoot = true;
                 return true;
             default:
                 return false;
@@ -61,6 +69,9 @@ public class InputManager implements InputProcessor {
             case Input.Keys.D:
                 right = false;
                 return true;
+            case Input.Keys.SPACE:
+                shoot = false;
+                return false;
             default:
                 return false;
         }

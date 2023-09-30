@@ -18,7 +18,7 @@ public abstract class Entity {
 
     public void update(float delta) {
         pos.add(vel.cpy().scl(delta));
-        //hitBox.setPosition(pos);
+        hitBox.setPosition(pos);
     }
 
 
