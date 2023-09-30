@@ -60,6 +60,10 @@ public abstract class State implements Screen {
         return Assets.getInstance();
     }
 
+    public void setState(State next) {
+        game.setScreen(next);
+    }
+
     @Override
     public void pause() {
 

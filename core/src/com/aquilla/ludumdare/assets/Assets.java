@@ -23,10 +23,13 @@ public class Assets {
         return instance;
     }
 
+    public boolean update() {
+        return manager.update();
+    }
+
     public void loadTexture(String filename, String name) {
         manager.load(filename, Texture.class);
         map.put(name, filename);
-        manager.finishLoading();
     }
 
     public Texture getTexture(String name) {

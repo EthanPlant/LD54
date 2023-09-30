@@ -1,6 +1,6 @@
 package com.aquilla.ludumdare;
 
-import com.aquilla.ludumdare.state.GameState;
+import com.aquilla.ludumdare.state.LoadingState;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,7 +16,7 @@ public class LudumDare extends Game {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		setScreen(new GameState(this));
+		setScreen(new LoadingState(this));
 	}
 
 	public SpriteBatch getBatch() {
