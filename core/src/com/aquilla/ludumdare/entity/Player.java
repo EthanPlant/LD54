@@ -13,7 +13,7 @@ public class Player extends Entity {
 
     public Player(float x, float y) {
         super(x, y, 16, 16);
-        setTexture(Assets.getInstance().getTexture("player_tex"));
+        setTexture(Assets.getInstance().getTexture("player_down_tex"));
         bullets = new Array<>();
         attackTimer = ATTACK_COOLDOWN;
     }
