@@ -1,31 +1,30 @@
 package com.aquilla.ludumdare;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
+import com.aquilla.ludumdare.state.GameState;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 
-public class LudumDare extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class LudumDare extends Game {
+
+	public static final int WIDTH = 434;
+	public static final int HEIGHT = 244;
+	public static final int SCALE = 2;
+	public static final String TITLE = "Ludum Dare 54";
+
+	private SpriteBatch batch;
 
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		setScreen(new GameState(this));
+	}
+
+	public SpriteBatch getBatch() {
+		return batch;
 	}
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-
-	@Override
-	public void dispose () {
+	public void dispose() {
 		batch.dispose();
-		img.dispose();
 	}
 }
