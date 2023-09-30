@@ -2,6 +2,7 @@ package com.aquilla.ludumdare.state;
 
 import com.aquilla.ludumdare.LudumDare;
 import com.aquilla.ludumdare.entity.Bullet;
+import com.aquilla.ludumdare.entity.Direction;
 import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.entity.enemy.BasicEnemy;
 import com.aquilla.ludumdare.entity.enemy.Enemy;
@@ -43,12 +44,16 @@ public class GameState extends State {
     public void update(float delta) {
         if (inputManager.isUp()) {
             player.setVel(0, Player.PLAYER_SPEED);
+            player.setDir(Direction.UP);
         } else if (inputManager.isDown()) {
             player.setVel(0, -Player.PLAYER_SPEED);
+            player.setDir(Direction.DOWN);
         } else if (inputManager.isLeft()) {
             player.setVel(-Player.PLAYER_SPEED, 0);
+            player.setDir(Direction.LEFT);
         } else if (inputManager.isRight()) {
             player.setVel(Player.PLAYER_SPEED, 0);
+            player.setDir(Direction.RIGHT);
         } else {
             player.setVel(0, 0);
         }
@@ -83,9 +88,9 @@ public class GameState extends State {
         mapRenderer.setView(getCam());
         getGame().getBatch().begin();
         mapRenderer.render();
-        for (Enemy e : enemies) {
-            getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
-        }
+//        for (Enemy e : enemies) {
+//            getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
+//        }
         getGame().getBatch().draw(player.getTexture(), player.getPos().x, player.getPos().y);
         for (Bullet b : player.getBullets()) {
             getGame().getBatch().draw(b.getTexture(), b.getPos().x, b.getPos().y);
