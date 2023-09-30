@@ -4,7 +4,6 @@ import com.aquilla.ludumdare.LudumDare;
 import com.aquilla.ludumdare.assets.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -14,7 +13,7 @@ public abstract class State implements Screen {
 
     private final LudumDare game;
     private final Viewport port;
-    private final Camera cam;
+    private final OrthographicCamera cam;
     abstract public void update(float delta);
     abstract public void draw();
 
@@ -52,7 +51,7 @@ public abstract class State implements Screen {
         return game;
     }
 
-    public Camera getCam() {
+    public OrthographicCamera getCam() {
         return cam;
     }
 

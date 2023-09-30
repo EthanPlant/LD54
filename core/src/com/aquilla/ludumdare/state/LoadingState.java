@@ -10,7 +10,7 @@ public class LoadingState extends State {
     }
 
     private void loadAssets() {
-        getAssets().loadTexture("badlogic.jpg", "badlogic");
+        getAssets().loadTiledMap("tilemap/test_map.tmx", "test_map");
     }
 
     @Override

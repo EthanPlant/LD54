@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class LudumDare extends Game {
 
-	public static final int WIDTH = 434;
-	public static final int HEIGHT = 244;
+	public static final int WIDTH = 432;
+	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	public static final String TITLE = "Ludum Dare 54";
 
