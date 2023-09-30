@@ -1,6 +1,7 @@
 package com.aquilla.ludumdare.state;
 
 import com.aquilla.ludumdare.LudumDare;
+import com.aquilla.ludumdare.assets.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
@@ -14,7 +15,6 @@ public abstract class State implements Screen {
     private final LudumDare game;
     private final Viewport port;
     private final Camera cam;
-
     abstract public void update(float delta);
     abstract public void draw();
 
@@ -54,6 +54,10 @@ public abstract class State implements Screen {
 
     public Camera getCam() {
         return cam;
+    }
+
+    public Assets getAssets() {
+        return Assets.getInstance();
     }
 
     @Override
