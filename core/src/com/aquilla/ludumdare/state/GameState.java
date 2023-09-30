@@ -2,11 +2,14 @@ package com.aquilla.ludumdare.state;
 
 import com.aquilla.ludumdare.LudumDare;
 import com.aquilla.ludumdare.entity.Player;
+import com.aquilla.ludumdare.entity.enemy.BasicEnemy;
+import com.aquilla.ludumdare.entity.enemy.Enemy;
 import com.aquilla.ludumdare.input.InputManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Array;
 
 public class GameState extends State {
 
@@ -16,6 +19,7 @@ public class GameState extends State {
     private final InputManager inputManager;
 
     private final Player player;
+    private final Array<Enemy> enemies;
 
     public GameState(LudumDare game) {
         super(game);
@@ -27,6 +31,10 @@ public class GameState extends State {
         Gdx.input.setInputProcessor(inputManager);
 
         player = new Player(getCam().position.x, getCam().position.y, 16, 16);
+        enemies = new Array<>();
+        enemies.add(new BasicEnemy(100, 100));
+        enemies.add(new BasicEnemy(200, 100));
+        enemies.add(new BasicEnemy(300, 100));
     }
 
     @Override
@@ -53,6 +61,9 @@ public class GameState extends State {
         getGame().getBatch().begin();
         mapRenderer.render();
         getGame().getBatch().draw(player.getTexture(), player.getPos().x, player.getPos().y);
+        for (Enemy e : enemies) {
+            getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
+        }
         getGame().getBatch().end();
     }
 }
