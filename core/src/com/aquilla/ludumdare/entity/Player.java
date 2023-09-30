@@ -23,7 +23,21 @@ public class Player extends Entity {
 
     public void shoot() {
         if (attackTimer >= ATTACK_COOLDOWN) {
-            Vector2 target = getVel().cpy().scl(1000); // Point a vector in the direction of the player's velocity
+            Vector2 target = null;
+            switch (dir) {
+                case UP:
+                    target = new Vector2(getPos().x, getPos().y + 1);
+                    break;
+                case DOWN:
+                    target = new Vector2(getPos().x, getPos().y - 1);
+                    break;
+                case LEFT:
+                    target = new Vector2(getPos().x - 1, getPos().y);
+                    break;
+                case RIGHT:
+                    target = new Vector2(getPos().x + 1, getPos().y);
+                    break;
+            }
             Bullet b = new Bullet(getPos().x, getPos().y, 5, 5, target);
             bullets.add(b);
             attackTimer = 0;

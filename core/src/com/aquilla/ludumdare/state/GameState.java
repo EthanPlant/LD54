@@ -88,9 +88,9 @@ public class GameState extends State {
         mapRenderer.setView(getCam());
         getGame().getBatch().begin();
         mapRenderer.render();
-//        for (Enemy e : enemies) {
-//            getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
-//        }
+        for (Enemy e : enemies) {
+            getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
+        }
         getGame().getBatch().draw(player.getTexture(), player.getPos().x, player.getPos().y);
         for (Bullet b : player.getBullets()) {
             getGame().getBatch().draw(b.getTexture(), b.getPos().x, b.getPos().y);
