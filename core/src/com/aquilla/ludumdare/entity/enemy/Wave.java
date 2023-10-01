@@ -1,5 +1,6 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -32,7 +33,11 @@ public class Wave {
                     }
                 }
                 e.setVel(vel.scl(e.getSpeed()));
+                Vector2 startingPos = e.getPos().cpy();
                 e.update(delta);
+                if (CollisionHandler.isCollidingWithMapObject(e)) {
+                    e.setPos(startingPos);
+                }
             }
         }
 
