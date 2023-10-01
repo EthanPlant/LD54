@@ -1,6 +1,7 @@
 package com.aquilla.ludumdare.entity.enemy;
 
 import com.aquilla.ludumdare.LudumDare;
+import com.aquilla.ludumdare.assets.Assets;
 import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.math.Vector2;
@@ -24,6 +25,7 @@ public class Wave {
     public void update(float delta, Player player, Map<Vector2, Vector2> paths) {
         for (Enemy e : enemies) {
             if (e.getHealth() <= 0) {
+                Assets.getInstance().getSound("enemy_death_sfx").play();
                 enemies.removeValue(e, true);
             } else {
                 int tileX = (int) e.getPos().x / 16;

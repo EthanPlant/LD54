@@ -1,5 +1,6 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.assets.Assets;
 import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.state.GameState;
 import com.aquilla.ludumdare.state.WinState;
@@ -37,10 +38,12 @@ public class WaveManager {
         } else {
             if (waveNumber >= 5) {
                 state.setState(new WinState(state.getGame()));
+            } else {
+                waveNumber++;
+                currentWave = new Wave(enemies);
+                Assets.getInstance().getSound("enemy_spawn_sfx").play();
+                Gdx.app.log("WaveManager", "Starting wave " + waveNumber);
             }
-            waveNumber++;
-            currentWave = new Wave(enemies);
-            Gdx.app.log("WaveManager", "Starting wave " + waveNumber);
         }
     }
 

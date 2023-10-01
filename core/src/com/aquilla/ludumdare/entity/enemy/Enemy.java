@@ -1,5 +1,6 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.assets.Assets;
 import com.aquilla.ludumdare.entity.Entity;
 import com.aquilla.ludumdare.entity.Player;
 
@@ -26,6 +27,7 @@ public abstract class Enemy extends Entity {
 
     public void onHit() {
         health -= Player.PLAYER_DAMAGE;
+        Assets.getInstance().getSound("enemy_hit_sfx").play();
     }
 
     public int getSpeed() {

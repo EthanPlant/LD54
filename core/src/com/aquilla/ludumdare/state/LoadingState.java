@@ -1,15 +1,12 @@
 package com.aquilla.ludumdare.state;
 
 import com.aquilla.ludumdare.LudumDare;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 
-public class LoadingState extends State implements InputProcessor {
+public class LoadingState extends State {
     public LoadingState(LudumDare game) {
         super(game);
 
         loadAssets();
-        Gdx.input.setInputProcessor(this);
     }
 
     private void loadAssets() {
@@ -21,6 +18,14 @@ public class LoadingState extends State implements InputProcessor {
         getAssets().loadTextureAtlas("texture/player.atlas", "player_tex");
 
         getAssets().loadTiledMap("tilemap/map.tmx", "map");
+
+        getAssets().loadSound("sound/player_shoot.wav", "player_shoot_sfx");
+        getAssets().loadSound("sound/player_hit.wav", "player_hit_sfx");
+        getAssets().loadSound("sound/enemy_hit.wav", "enemy_hit_sfx");
+        getAssets().loadSound("sound/enemy_death.wav", "enemy_death_sfx");
+        getAssets().loadSound("sound/enemy_spawn.wav", "enemy_spawn_sfx");
+        getAssets().loadSound("sound/player_death.wav", "player_death_sfx");
+        getAssets().loadSound("sound/menu_select.wav", "menu_select_sfx");
     }
 
     @Override
@@ -35,51 +40,5 @@ public class LoadingState extends State implements InputProcessor {
         getGame().getBatch().setProjectionMatrix(getCam().combined);
         getGame().getBatch().begin();
         getGame().getBatch().end();
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        setState(new GameState(getGame()));
-        return true;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
     }
 }

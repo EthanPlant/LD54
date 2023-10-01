@@ -82,6 +82,7 @@ public class Player extends Entity {
             animationTimer = 0;
         }
         if (attackTimer >= ATTACK_COOLDOWN) {
+            Assets.getInstance().getSound("player_shoot_sfx").play();
             Vector2 target = null;
             switch (dir) {
                 case UP:
@@ -161,6 +162,7 @@ public class Player extends Entity {
     }
 
     public void damage(float damage) {
+        Assets.getInstance().getSound("player_hit_sfx").play();
         health -= damage;
     }
 

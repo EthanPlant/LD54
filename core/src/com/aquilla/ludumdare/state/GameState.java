@@ -51,6 +51,7 @@ public class GameState extends State {
         getCam().update();
         if (player.getHealth() <= 0) {
             setState(new GameOverState(getGame()));
+            getAssets().getSound("player_death_sfx").play();
         }
 
         if (inputManager.isUp()) {

@@ -2,6 +2,7 @@ package com.aquilla.ludumdare.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -63,5 +64,14 @@ public class Assets {
 
     public TiledMap getTiledMap(String name) {
         return manager.get(map.get(name), TiledMap.class);
+    }
+
+    public void loadSound(String filename, String name) {
+        manager.load(filename, Sound.class);
+        map.put(name, filename);
+    }
+
+    public Sound getSound(String name) {
+        return manager.get(map.get(name), Sound.class);
     }
 }
