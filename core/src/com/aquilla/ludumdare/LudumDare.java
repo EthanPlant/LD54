@@ -9,7 +9,7 @@ public class LudumDare extends Game {
 	public static final int WIDTH = 432;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 3;
-	public static final String TITLE = "Ludum Dare 54";
+	public static final String TITLE = "Rootin' Tootin' Zombie Shootin'";
 
 	private SpriteBatch batch;
 

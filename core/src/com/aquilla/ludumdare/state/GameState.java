@@ -98,7 +98,7 @@ public class GameState extends State {
 
         Vector2 playerStartPos = player.getPos().cpy();
         player.update(delta);
-        if (CollisionHandler.isCollidingWithMapObject(player)) {
+        if (CollisionHandler.isCollidingWithMapObject(player) || player.getPos().x < 0 || player.getPos().x > LudumDare.WIDTH - 16 || player.getPos().y < 0 || player.getPos().y > LudumDare.HEIGHT - 16) {
             player.setPos(playerStartPos);
         }
         // Check if player has moved a tile
