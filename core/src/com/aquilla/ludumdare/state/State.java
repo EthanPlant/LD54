@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class State implements Screen {
-
     private final LudumDare game;
     private final Viewport port;
     private final OrthographicCamera cam;

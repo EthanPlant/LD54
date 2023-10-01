@@ -8,11 +8,12 @@ public class Player extends Entity {
     public static final int PLAYER_SPEED = 100;
     public static final int PLAYER_DAMAGE = 20;
     private static final float ATTACK_COOLDOWN = 0.1f;
+    public static final float MAX_HEALTH = 100f;
 
     private final Array<Bullet> bullets;
     private float attackTimer;
-
     private Direction dir;
+    private float health;
 
     public Player(float x, float y) {
         super(x, y, 16, 16);
@@ -20,6 +21,7 @@ public class Player extends Entity {
         bullets = new Array<>();
         attackTimer = ATTACK_COOLDOWN;
         dir = Direction.DOWN;
+        health = MAX_HEALTH;
     }
 
     public void shoot() {
@@ -67,11 +69,19 @@ public class Player extends Entity {
         super.update(delta);
     }
 
+    public void damage(float damage) {
+        health -= damage;
+    }
+
     public Array<Bullet> getBullets() {
         return bullets;
     }
 
     public void setDir(Direction dir) {
         this.dir = dir;
+    }
+
+    public float getHealth() {
+        return health;
     }
 }

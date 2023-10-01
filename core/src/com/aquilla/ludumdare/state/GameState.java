@@ -7,13 +7,14 @@ import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.entity.enemy.Enemy;
 import com.aquilla.ludumdare.entity.enemy.WaveManager;
 import com.aquilla.ludumdare.input.InputManager;
+import com.aquilla.ludumdare.ui.HealthBar;
 import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-
+import com.badlogic.gdx.scenes.scene2d.Stage;
 public class GameState extends State {
 
     private final TiledMapRenderer mapRenderer;
@@ -22,6 +23,9 @@ public class GameState extends State {
 
     private final Player player;
     private final WaveManager waveManager;
+
+    private final Stage stage;
+    private final HealthBar playerHealth;
 
     public GameState(LudumDare game) {
         super(game);
@@ -34,10 +38,22 @@ public class GameState extends State {
 
         player = new Player(getCam().position.x, getCam().position.y);
         waveManager = new WaveManager();
+
+        stage = new Stage();
+        playerHealth = new HealthBar(250, 20, Player.MAX_HEALTH);
+        playerHealth.setPosition(10, stage.getViewport().getWorldHeight() - 30);
+        stage.addActor(playerHealth);
     }
 
     @Override
     public void update(float delta) {
+        getCam().update();
+        // death = crash
+        if (player.getHealth() <= 0) {
+            System.out.println("Dead");
+            Gdx.app.exit();
+        }
+
         if (inputManager.isUp()) {
             player.setVel(0, Player.PLAYER_SPEED);
             player.setDir(Direction.UP);
@@ -79,6 +95,8 @@ public class GameState extends State {
         }
 
         waveManager.update(delta, player);
+
+        playerHealth.setValue(player.getHealth());
     }
 
     @Override
@@ -95,5 +113,16 @@ public class GameState extends State {
             getGame().getBatch().draw(b.getTexture(), b.getPos().x, b.getPos().y);
         }
         getGame().getBatch().end();
+
+        stage.getBatch().setProjectionMatrix(getCam().combined);
+        stage.act(Gdx.graphics.getDeltaTime());
+
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+       stage.getViewport().update(width, height, true);
+       super.resize(width, height);
     }
 }

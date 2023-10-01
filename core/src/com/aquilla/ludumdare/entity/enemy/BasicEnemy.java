@@ -2,9 +2,10 @@ package com.aquilla.ludumdare.entity.enemy;
 
 import com.aquilla.ludumdare.assets.Assets;
 import com.aquilla.ludumdare.entity.Player;
-import com.badlogic.gdx.Gdx;
 
 public class BasicEnemy extends Enemy {
+    private static final float BASIC_DAMAGE = 15;
+
     public BasicEnemy(float x, float y) {
         super(x, y, 16, 16);
         setHealth(100);
@@ -18,7 +19,7 @@ public class BasicEnemy extends Enemy {
     @Override
     public void attack(Player player) {
         if (getAttackTimer() >= getAttackCooldown()) {
-            Gdx.app.log("BasicEnemy", "Attacked!");
+            player.damage(BASIC_DAMAGE);
             setAttackTimer(0);
         }
     }
