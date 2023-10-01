@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 public class Player extends Entity {
     public static final int PLAYER_SPEED = 100;
     public static final int PLAYER_DAMAGE = 20;
-    private static final float ATTACK_COOLDOWN = 0.1f;
+    private static final float ATTACK_COOLDOWN = 0.4f;
     public static final float MAX_HEALTH = 100f;
 
     private final Array<Bullet> bullets;
@@ -19,6 +19,7 @@ public class Player extends Entity {
     private float health;
 
     private final Array<Animation<TextureRegion>> walkingAnimations;
+    private final Array<Animation<TextureRegion>> shootingAnimations;
     private float animationTimer;
 
     public Player(float x, float y) {
@@ -51,9 +52,35 @@ public class Player extends Entity {
                 Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_walk_right"),
                 Animation.PlayMode.LOOP
         ));
+
+        shootingAnimations = new Array<>();
+        shootingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_shoot_down"),
+                Animation.PlayMode.NORMAL
+        ));
+        shootingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_shoot_up"),
+                Animation.PlayMode.NORMAL
+        ));
+        shootingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_shoot_left"),
+                Animation.PlayMode.NORMAL
+        ));
+        shootingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_shoot_right"),
+                Animation.PlayMode.NORMAL
+        ));
     }
 
     public void shoot() {
+        state = State.SHOOTING;
+        if (animationTimer > shootingAnimations.get(0).getAnimationDuration()) {
+            animationTimer = 0;
+        }
         if (attackTimer >= ATTACK_COOLDOWN) {
             Vector2 target = null;
             switch (dir) {
@@ -85,9 +112,9 @@ public class Player extends Entity {
             animationTimer = 0;
         }
 
-        if (!getVel().equals(Vector2.Zero)) {
+        if (!getVel().equals(Vector2.Zero) && state != State.SHOOTING) {
             state = State.WALKING;
-        } else {
+        } else if (state != State.SHOOTING || shootingAnimations.get(0).isAnimationFinished(animationTimer)) {
             state = State.STANDING;
         }
 
@@ -97,6 +124,8 @@ public class Player extends Entity {
                     setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_down"));
                 } else if (state == State.WALKING) {
                     setTexture(walkingAnimations.get(0).getKeyFrame(animationTimer));
+                } else if (state == State.SHOOTING) {
+                    setTexture(shootingAnimations.get(0).getKeyFrame(animationTimer));
                 }
                 break;
             case UP:
@@ -104,6 +133,8 @@ public class Player extends Entity {
                     setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_up"));
                 } else if (state == State.WALKING) {
                     setTexture(walkingAnimations.get(1).getKeyFrame(animationTimer));
+                } else if (state == State.SHOOTING) {
+                    setTexture(shootingAnimations.get(1).getKeyFrame(animationTimer));
                 }
                 break;
             case LEFT:
@@ -111,6 +142,8 @@ public class Player extends Entity {
                     setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_left"));
                 } else if (state == State.WALKING) {
                     setTexture(walkingAnimations.get(2).getKeyFrame(animationTimer));
+                } else if (state == State.SHOOTING) {
+                    setTexture(shootingAnimations.get(2).getKeyFrame(animationTimer));
                 }
                 break;
             case RIGHT:
@@ -118,6 +151,8 @@ public class Player extends Entity {
                     setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_right"));
                 } else if (state == State.WALKING) {
                     setTexture(walkingAnimations.get(3).getKeyFrame(animationTimer));
+                } else if (state == State.SHOOTING) {
+                    setTexture(shootingAnimations.get(3).getKeyFrame(animationTimer));
                 }
                 break;
         }
