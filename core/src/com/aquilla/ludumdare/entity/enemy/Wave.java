@@ -1,9 +1,12 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.LudumDare;
 import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Map;
 
 public class Wave {
     private final Array<Enemy> enemies;
@@ -19,24 +22,27 @@ public class Wave {
         completed = false;
     }
 
-    public void update(float delta, Player player) {
+    public void update(float delta, Player player, Map<Vector2, Vector2> paths) {
         for (Enemy e : enemies) {
             if (e.getHealth() <= 0) {
                 enemies.removeValue(e, true);
             } else {
-                Vector2 dir = player.getPos().cpy().sub(e.getPos()).nor();
-                Vector2 vel = dir.cpy();
-                for (int i = 0; i < enemies.size; i++) {
-                    Enemy e2 = enemies.get(i);
-                    if (e != e2) {
-                        Vector2 edir = e2.getPos().cpy().sub(e.getPos()).nor();
-                        vel.sub(edir.scl(500 / e.getPos().dst2(e2.getPos()))).nor();
-                    }
-                }
+                int tileX = (int) e.getPos().x / 16;
+                int tileY = (int) e.getPos().y / 16;
+                Vector2 tile = new Vector2(tileX, tileY);
+                Vector2 target = paths.get(tile);
+//                if (target == null) {
+//                    target = tile.cpy();
+//                }
+                Vector2 vel = target.cpy().sub(tile);
                 e.setVel(vel.scl(e.getSpeed()));
                 Vector2 startingPos = e.getPos().cpy();
                 e.update(delta);
-                if (CollisionHandler.isCollidingWithMapObject(e)) {
+                if (CollisionHandler.isCollidingWithMapObject(e)
+                        || e.getPos().x > LudumDare.WIDTH
+                        || e.getPos().y > LudumDare.HEIGHT
+                        || e.getPos().x < 0
+                        || e.getPos().y < 0) {
                     e.setPos(startingPos);
                 }
                 if (e.getPos().dst(player.getPos()) < e.getAttackRadius()) {

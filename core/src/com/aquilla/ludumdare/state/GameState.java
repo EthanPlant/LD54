@@ -38,6 +38,7 @@ public class GameState extends State {
 
         player = new Player(getCam().position.x, getCam().position.y);
         waveManager = new WaveManager();
+        waveManager.updatePaths(player);
 
         stage = new Stage();
         playerHealth = new HealthBar(250, 20, Player.MAX_HEALTH);
@@ -92,6 +93,11 @@ public class GameState extends State {
         player.update(delta);
         if (CollisionHandler.isCollidingWithMapObject(player)) {
             player.setPos(playerStartPos);
+        }
+        // Check if player has moved a tile
+        if ((int) player.getPos().x / 16 != (int) playerStartPos.x / 16 ||
+                (int) player.getPos().y / 16 != (int) playerStartPos.y / 16) {
+            waveManager.updatePaths(player);
         }
 
         waveManager.update(delta, player);
