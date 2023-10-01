@@ -28,7 +28,7 @@ public class GameState extends State {
     public GameState(LudumDare game) {
         super(game);
 
-        map = getAssets().getTiledMap("test_map");
+        map = getAssets().getTiledMap("map");
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         inputManager = new InputManager();

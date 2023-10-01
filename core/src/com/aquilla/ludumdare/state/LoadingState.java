@@ -15,7 +15,7 @@ public class LoadingState extends State {
         getAssets().loadTextureAtlas("texture/player.atlas", "player_tex");
 
 
-        getAssets().loadTiledMap("tilemap/test_map.tmx", "test_map");
+        getAssets().loadTiledMap("tilemap/map.tmx", "map");
     }
 
     @Override
