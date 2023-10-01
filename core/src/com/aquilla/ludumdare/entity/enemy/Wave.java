@@ -15,10 +15,7 @@ public class Wave {
     private boolean completed;
 
     public Wave(Array<Enemy> enemies) {
-        this.enemies = new Array<>();
-        for (Enemy e : enemies) {
-            this.enemies.add(new BasicEnemy(e.getPos().x, e.getPos().y));
-        }
+        this.enemies = enemies;
         completed = false;
     }
 
@@ -32,6 +29,9 @@ public class Wave {
                 int tileY = (int) e.getPos().y / 16;
                 Vector2 tile = new Vector2(tileX, tileY);
                 Vector2 target = paths.get(tile);
+                if (target == null) {
+                    target = tile;
+                }
                 Vector2 vel = target.cpy().sub(tile);
                 e.setVel(vel.scl(e.getSpeed()));
                 Vector2 startingPos = e.getPos().cpy();

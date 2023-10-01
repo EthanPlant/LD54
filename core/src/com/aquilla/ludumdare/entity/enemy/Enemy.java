@@ -1,19 +1,25 @@
 package com.aquilla.ludumdare.entity.enemy;
 
 import com.aquilla.ludumdare.assets.Assets;
+import com.aquilla.ludumdare.entity.Bullet;
 import com.aquilla.ludumdare.entity.Entity;
 import com.aquilla.ludumdare.entity.Player;
+import com.badlogic.gdx.utils.Array;
 
 public abstract class Enemy extends Entity {
     private int speed;
     private float health;
+    private float damage;
 
     private float attackRadius;
     private float attackTimer;
     private float attackCooldown;
 
+    private final Array<Bullet> bullets;
+
     public Enemy(float x, float y, int width, int height) {
         super(x, y, width, height);
+        bullets = new Array<>();
     }
 
     @Override
@@ -36,6 +42,14 @@ public abstract class Enemy extends Entity {
 
     public float getHealth() {
         return health;
+    }
+
+    public float getDamage() {
+        return damage;
+    }
+
+    public void setDamage(float damage) {
+        this.damage = damage;
     }
 
     public void setSpeed(int speed) {
@@ -68,6 +82,10 @@ public abstract class Enemy extends Entity {
 
     public void setAttackTimer(float attackTimer) {
         this.attackTimer = attackTimer;
+    }
+
+    public Array<Bullet> getBullets() {
+        return bullets;
     }
 
 }

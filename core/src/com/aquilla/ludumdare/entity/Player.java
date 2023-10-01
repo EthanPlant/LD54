@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class Player extends Entity {
     public static final int PLAYER_SPEED = 100;
-    public static final int PLAYER_DAMAGE = 20;
+    public static final int PLAYER_DAMAGE = 30;
     private static final float ATTACK_COOLDOWN = 0.4f;
-    public static final float MAX_HEALTH = 100f;
+    public static final float MAX_HEALTH = 300f;
 
     private final Array<Bullet> bullets;
     private float attackTimer;

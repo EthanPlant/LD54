@@ -36,7 +36,7 @@ public class GameState extends State {
         inputManager = new InputManager();
         Gdx.input.setInputProcessor(inputManager);
 
-        player = new Player(getCam().position.x, getCam().position.y);
+        player = new Player(176, 64);
         waveManager = new WaveManager();
         waveManager.updatePaths(player);
 
@@ -105,6 +105,18 @@ public class GameState extends State {
 
         waveManager.update(delta, player, this);
 
+        for (Enemy e : waveManager.getEnemies()) {
+            for (Bullet b : e.getBullets()) {
+                if (CollisionHandler.areEntitiesColliding(b, player)) {
+                    player.damage(e.getDamage());
+                    e.getBullets().removeValue(b, true);
+                }
+                if (CollisionHandler.isCollidingWithMapObject(b)) {
+                    e.getBullets().removeValue(b, true);
+                }
+            }
+        }
+
         playerHealth.setValue(player.getHealth());
     }
 
@@ -116,6 +128,9 @@ public class GameState extends State {
         mapRenderer.render();
         for (Enemy e : waveManager.getEnemies()) {
             getGame().getBatch().draw(e.getTexture(), e.getPos().x, e.getPos().y);
+            for (Bullet b : e.getBullets()) {
+                getGame().getBatch().draw(b.getTexture(), b.getPos().x, b.getPos().y);
+            }
         }
         getGame().getBatch().draw(player.getTexture(), player.getPos().x, player.getPos().y);
         for (Bullet b : player.getBullets()) {
