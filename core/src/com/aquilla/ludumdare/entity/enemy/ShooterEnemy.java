@@ -7,7 +7,7 @@ import com.aquilla.ludumdare.entity.Player;
 public class ShooterEnemy extends Enemy {
     public ShooterEnemy(float x, float y) {
         super(x, y, 16, 16);
-        setTexture(Assets.getInstance().getTexture("enemy_tex"));
+        setTexture(Assets.getInstance().getTexture("shooter_tex"));
         setHealth(40);
         setSpeed(35);
         setDamage(15);

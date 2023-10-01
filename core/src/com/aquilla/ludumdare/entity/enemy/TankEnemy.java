@@ -6,7 +6,7 @@ import com.aquilla.ludumdare.entity.Player;
 public class TankEnemy extends Enemy {
     public TankEnemy(float x, float y) {
         super(x, y, 16, 16);
-        setTexture(Assets.getInstance().getTexture("enemy_tex"));
+        setTexture(Assets.getInstance().getTexture("tank_tex"));
         setHealth(100);
         setSpeed(20);
         setDamage(3);

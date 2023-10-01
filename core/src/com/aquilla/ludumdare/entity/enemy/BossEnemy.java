@@ -7,7 +7,7 @@ import com.aquilla.ludumdare.entity.Player;
 public class BossEnemy extends Enemy {
     public BossEnemy(float x, float y) {
         super(x, y, 16, 16);
-        setTexture(Assets.getInstance().getTexture("enemy_tex"));
+        setTexture(Assets.getInstance().getTexture("boss_tex"));
         setHealth(150);
         setSpeed(50);
         setDamage(30);
