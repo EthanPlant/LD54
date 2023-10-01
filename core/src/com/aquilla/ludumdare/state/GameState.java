@@ -60,10 +60,14 @@ public class GameState extends State {
 
         for (Bullet b : player.getBullets()) {
             b.update(delta);
-            for (Enemy e : waveManager.getEnemies()) {
-                if (CollisionHandler.areHitboxesColliding(b.getHitBox(), e.getHitBox())) {
-                    player.getBullets().removeValue(b, true);
-                    e.onHit();
+            if (CollisionHandler.isCollidingWithMapObject(b)) {
+                player.getBullets().removeValue(b, true);
+            } else {
+                for (Enemy e : waveManager.getEnemies()) {
+                    if (CollisionHandler.areEntitiesColliding(b, e)) {
+                        player.getBullets().removeValue(b, true);
+                        e.onHit();
+                    }
                 }
             }
         }

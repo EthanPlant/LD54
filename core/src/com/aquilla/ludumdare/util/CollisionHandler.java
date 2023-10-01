@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 public final class CollisionHandler {
 
-    public static boolean areHitboxesColliding(Rectangle hitbox1, Rectangle hitbox2) {
-        return hitbox1.overlaps(hitbox2);
+    public static boolean areEntitiesColliding(Entity e1, Entity e2) {
+        return e1.getHitBox().overlaps(e2.getHitBox());
     }
 
     public static boolean isCollidingWithMapObject(Entity e) {
