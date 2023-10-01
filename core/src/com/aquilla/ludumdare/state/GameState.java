@@ -15,6 +15,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
 public class GameState extends State {
 
     private final TiledMapRenderer mapRenderer;
@@ -40,8 +44,8 @@ public class GameState extends State {
         waveManager = new WaveManager();
         waveManager.updatePaths(player);
 
-        stage = new Stage();
-        playerHealth = new HealthBar(250, 20, Player.MAX_HEALTH);
+        stage = new Stage(new ExtendViewport(LudumDare.WIDTH, LudumDare.HEIGHT));
+        playerHealth = new HealthBar(64, 16, Player.MAX_HEALTH);
         playerHealth.setPosition(10, stage.getViewport().getWorldHeight() - 30);
         stage.addActor(playerHealth);
 

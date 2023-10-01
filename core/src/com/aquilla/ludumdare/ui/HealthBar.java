@@ -1,5 +1,6 @@
 package com.aquilla.ludumdare.ui;
 
+import com.aquilla.ludumdare.assets.Assets;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -39,7 +40,8 @@ public class HealthBar extends ProgressBar {
         getStyle().knob = getDrawableFromHealth(0);
         getStyle().knobBefore = getDrawableFromHealth((int) getStyle().knobBefore.getMinWidth());
         super.draw(batch, parentAlpha);
-        String healthString = (int) getValue() + "/" + (int) getMaxValue();
-        font.draw(batch, healthString, getX(), getY() + font.getLineHeight());
+        batch.draw(Assets.getInstance().getTexture("healthbar_tex"), getX(), getY(), getWidth(), getHeight());
+//        String healthString = (int) getValue() + "/" + (int) getMaxValue();
+//        font.draw(batch, healthString, getX(), getY() + font.getLineHeight());
     }
 }

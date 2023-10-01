@@ -18,6 +18,7 @@ public class LoadingState extends State {
         getAssets().loadTexture("texture/enemy_boss.png", "boss_tex");
         getAssets().loadTexture("texture/titlescreen.png", "titlescreen");
         getAssets().loadTexture("texture/winscreen.png", "winscreen");
+        getAssets().loadTexture("texture/healthbar.png", "healthbar_tex");
         getAssets().loadTextureAtlas("texture/player.atlas", "player_tex");
 
         getAssets().loadTiledMap("tilemap/map.tmx", "map");
