@@ -12,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameState extends State {
 
@@ -67,7 +68,12 @@ public class GameState extends State {
             }
         }
 
+        Vector2 playerStartPos = player.getPos().cpy();
         player.update(delta);
+        if (CollisionHandler.isCollidingWithMapObject(player)) {
+            player.setPos(playerStartPos);
+        }
+
         waveManager.update(delta, player.getPos().cpy());
     }
 

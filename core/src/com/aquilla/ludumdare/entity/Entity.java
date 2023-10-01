@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
     private TextureRegion texture;
-    private final Vector2 pos;
+    private Vector2 pos;
     private Vector2 vel;
     private final Rectangle hitBox;
 
@@ -38,9 +38,8 @@ public abstract class Entity {
     public Vector2 getPos() {
         return pos;
     }
-
-    public Vector2 getVel() {
-        return vel;
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
     }
 
     public void setVel(Vector2 vel) {
