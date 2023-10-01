@@ -7,6 +7,7 @@ import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.entity.enemy.BasicEnemy;
 import com.aquilla.ludumdare.entity.enemy.Enemy;
 import com.aquilla.ludumdare.input.InputManager;
+import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
@@ -64,21 +65,31 @@ public class GameState extends State {
 
         for (Bullet b : player.getBullets()) {
             b.update(delta);
+            for (Enemy e : enemies) {
+                if (CollisionHandler.areHitboxesColliding(b.getHitBox(), e.getHitBox())) {
+                    player.getBullets().removeValue(b, true);
+                    e.onHit();
+                }
+            }
         }
 
         player.update(delta);
         for (Enemy e : enemies) {
-            Vector2 dir = player.getPos().cpy().sub(e.getPos()).nor();
-            Vector2 vel = dir.cpy();
-            for (int i = 0; i < enemies.size; i++) {
-                Enemy e2 = enemies.get(i);
-                if (e != e2) {
-                    Vector2 edir = e2.getPos().cpy().sub(e.getPos()).nor();
-                    vel.sub(edir.scl(500 / e.getPos().dst2(e2.getPos()))).nor();
+            if (e.getHealth() <= 0) {
+                enemies.removeValue(e, true);
+            } else {
+                Vector2 dir = player.getPos().cpy().sub(e.getPos()).nor();
+                Vector2 vel = dir.cpy();
+                for (int i = 0; i < enemies.size; i++) {
+                    Enemy e2 = enemies.get(i);
+                    if (e != e2) {
+                        Vector2 edir = e2.getPos().cpy().sub(e.getPos()).nor();
+                        vel.sub(edir.scl(500 / e.getPos().dst2(e2.getPos()))).nor();
+                    }
                 }
+                e.setVel(vel.scl(e.getSpeed()));
+                e.update(delta);
             }
-            e.setVel(vel.scl(e.getSpeed()));
-            e.update(delta);
         }
     }
 
