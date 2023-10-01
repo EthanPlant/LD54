@@ -18,7 +18,7 @@ public class TitleState extends State {
         TextureRegion[][] tmp = TextureRegion.split(tex, tex.getWidth() / 20, tex.getHeight());
         TextureRegion[] frames = new TextureRegion[20];
         System.arraycopy(tmp[0], 0, frames, 0, 20);
-        animation = new Animation<>(0.1f, frames);
+        animation = new Animation<>(0.07f, frames);
         frameCount = 0;
     }
 

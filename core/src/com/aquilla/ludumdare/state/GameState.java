@@ -49,10 +49,8 @@ public class GameState extends State {
     @Override
     public void update(float delta) {
         getCam().update();
-        // death = crash
         if (player.getHealth() <= 0) {
-            System.out.println("Dead");
-            Gdx.app.exit();
+            setState(new GameOverState(getGame()));
         }
 
         if (inputManager.isUp()) {
@@ -100,7 +98,7 @@ public class GameState extends State {
             waveManager.updatePaths(player);
         }
 
-        waveManager.update(delta, player);
+        waveManager.update(delta, player, this);
 
         playerHealth.setValue(player.getHealth());
     }

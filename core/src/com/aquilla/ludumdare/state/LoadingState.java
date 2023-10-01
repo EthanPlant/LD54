@@ -14,8 +14,10 @@ public class LoadingState extends State implements InputProcessor {
 
     private void loadAssets() {
         getAssets().loadTexture("texture/bullet.png", "bullet_tex");
+        getAssets().loadTexture("texture/gameover.png", "gameover");
         getAssets().loadTexture("texture/enemy.png", "enemy_tex");
         getAssets().loadTexture("texture/titlescreen.png", "titlescreen");
+        getAssets().loadTexture("texture/winscreen.png", "winscreen");
         getAssets().loadTextureAtlas("texture/player.atlas", "player_tex");
 
         getAssets().loadTiledMap("tilemap/map.tmx", "map");

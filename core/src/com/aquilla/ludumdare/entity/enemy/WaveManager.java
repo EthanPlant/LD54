@@ -1,6 +1,8 @@
 package com.aquilla.ludumdare.entity.enemy;
 
 import com.aquilla.ludumdare.entity.Player;
+import com.aquilla.ludumdare.state.GameState;
+import com.aquilla.ludumdare.state.WinState;
 import com.aquilla.ludumdare.util.Pathfinding;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -29,10 +31,13 @@ public class WaveManager {
         currentWave = new Wave(enemies);
     }
 
-    public void update(float delta, Player player) {
+    public void update(float delta, Player player, GameState state) {
         if (!currentWave.isCompleted()) {
             currentWave.update(delta, player, paths);
         } else {
+            if (waveNumber >= 5) {
+                state.setState(new WinState(state.getGame()));
+            }
             waveNumber++;
             currentWave = new Wave(enemies);
             Gdx.app.log("WaveManager", "Starting wave " + waveNumber);
