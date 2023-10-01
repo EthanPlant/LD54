@@ -84,6 +84,9 @@ public class WaveManager {
                 Assets.getInstance().getMusic("bgm").stop();
             } else {
                 waveNumber++;
+                if (waveNumber == 5) {
+                    player.restoreHealth();
+                }
                 currentWave = new Wave(waves.get(waveNumber - 1));
                 Assets.getInstance().getSound("enemy_spawn_sfx").play();
                 Gdx.app.log("WaveManager", "Starting wave " + waveNumber);

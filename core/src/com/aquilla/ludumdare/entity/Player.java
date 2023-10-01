@@ -177,4 +177,8 @@ public class Player extends Entity {
     public float getHealth() {
         return health;
     }
+
+    public void restoreHealth() {
+        health = MAX_HEALTH;
+    }
 }
