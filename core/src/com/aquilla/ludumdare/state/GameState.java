@@ -78,7 +78,7 @@ public class GameState extends State {
             player.setPos(playerStartPos);
         }
 
-        waveManager.update(delta, player.getPos().cpy());
+        waveManager.update(delta, player);
     }
 
     @Override

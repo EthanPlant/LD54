@@ -1,7 +1,7 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.entity.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class WaveManager {
@@ -21,9 +21,9 @@ public class WaveManager {
         currentWave = new Wave(enemies);
     }
 
-    public void update(float delta, Vector2 playerPos) {
+    public void update(float delta, Player player) {
         if (!currentWave.isCompleted()) {
-            currentWave.update(delta, playerPos);
+            currentWave.update(delta, player);
         } else {
             waveNumber++;
             currentWave = new Wave(enemies);

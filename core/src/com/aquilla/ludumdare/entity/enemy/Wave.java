@@ -1,5 +1,6 @@
 package com.aquilla.ludumdare.entity.enemy;
 
+import com.aquilla.ludumdare.entity.Player;
 import com.aquilla.ludumdare.util.CollisionHandler;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -18,12 +19,12 @@ public class Wave {
         completed = false;
     }
 
-    public void update(float delta, Vector2 playerPos) {
+    public void update(float delta, Player player) {
         for (Enemy e : enemies) {
             if (e.getHealth() <= 0) {
                 enemies.removeValue(e, true);
             } else {
-                Vector2 dir = playerPos.cpy().sub(e.getPos()).nor();
+                Vector2 dir = player.getPos().cpy().sub(e.getPos()).nor();
                 Vector2 vel = dir.cpy();
                 for (int i = 0; i < enemies.size; i++) {
                     Enemy e2 = enemies.get(i);
@@ -37,6 +38,9 @@ public class Wave {
                 e.update(delta);
                 if (CollisionHandler.isCollidingWithMapObject(e)) {
                     e.setPos(startingPos);
+                }
+                if (e.getPos().dst(player.getPos()) < e.getAttackRadius()) {
+                    e.attack(player);
                 }
             }
         }
