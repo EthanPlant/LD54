@@ -26,6 +26,9 @@ public class LoadingState extends State {
         getAssets().loadSound("sound/enemy_spawn.wav", "enemy_spawn_sfx");
         getAssets().loadSound("sound/player_death.wav", "player_death_sfx");
         getAssets().loadSound("sound/menu_select.wav", "menu_select_sfx");
+
+        getAssets().loadMusic("music/titlescreen.wav", "titlescreen_bgm");
+        getAssets().loadMusic("music/bgm.wav", "bgm");
     }
 
     @Override

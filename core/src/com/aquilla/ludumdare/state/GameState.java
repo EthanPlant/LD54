@@ -44,6 +44,9 @@ public class GameState extends State {
         playerHealth = new HealthBar(250, 20, Player.MAX_HEALTH);
         playerHealth.setPosition(10, stage.getViewport().getWorldHeight() - 30);
         stage.addActor(playerHealth);
+
+        getAssets().getMusic("bgm").play();
+        getAssets().getMusic("bgm").setLooping(true);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class GameState extends State {
         if (player.getHealth() <= 0) {
             setState(new GameOverState(getGame()));
             getAssets().getSound("player_death_sfx").play();
+            getAssets().getMusic("bgm").stop();
         }
 
         if (inputManager.isUp()) {

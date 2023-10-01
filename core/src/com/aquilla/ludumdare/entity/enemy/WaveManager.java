@@ -38,6 +38,7 @@ public class WaveManager {
         } else {
             if (waveNumber >= 5) {
                 state.setState(new WinState(state.getGame()));
+                Assets.getInstance().getMusic("bgm").stop();
             } else {
                 waveNumber++;
                 currentWave = new Wave(enemies);

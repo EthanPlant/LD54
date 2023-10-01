@@ -23,6 +23,8 @@ public class TitleState extends State implements InputProcessor {
         animation = new Animation<>(0.07f, frames);
         frameCount = 0;
         Gdx.input.setInputProcessor(this);
+        getAssets().getMusic("titlescreen_bgm").play();
+        getAssets().getMusic("titlescreen_bgm").setLooping(true);
     }
 
     @Override
@@ -41,6 +43,7 @@ public class TitleState extends State implements InputProcessor {
     public boolean keyDown(int keycode) {
         setState(new GameState(getGame()));
         getAssets().getSound("menu_select_sfx").play();
+        getAssets().getMusic("titlescreen_bgm").stop();
         return true;
     }
 
