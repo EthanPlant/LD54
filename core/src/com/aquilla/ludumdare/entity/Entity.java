@@ -42,6 +42,10 @@ public abstract class Entity {
         this.pos = pos;
     }
 
+    public Vector2 getVel() {
+        return vel;
+    }
+
     public void setVel(Vector2 vel) {
         this.vel = vel;
     }

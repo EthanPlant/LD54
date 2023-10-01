@@ -1,6 +1,8 @@
 package com.aquilla.ludumdare.entity;
 
 import com.aquilla.ludumdare.assets.Assets;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -13,7 +15,11 @@ public class Player extends Entity {
     private final Array<Bullet> bullets;
     private float attackTimer;
     private Direction dir;
+    private State state;
     private float health;
+
+    private final Array<Animation<TextureRegion>> walkingAnimations;
+    private float animationTimer;
 
     public Player(float x, float y) {
         super(x, y, 16, 16);
@@ -21,7 +27,30 @@ public class Player extends Entity {
         bullets = new Array<>();
         attackTimer = ATTACK_COOLDOWN;
         dir = Direction.DOWN;
+        state = State.STANDING;
         health = MAX_HEALTH;
+
+        walkingAnimations = new Array<>();
+        walkingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_walk_down"),
+                Animation.PlayMode.LOOP
+        ));
+        walkingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_walk_up"),
+                Animation.PlayMode.LOOP
+        ));
+        walkingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_walk_left"),
+                Animation.PlayMode.LOOP
+        ));
+        walkingAnimations.add(new Animation<TextureRegion>(
+                0.1f,
+                Assets.getInstance().getTextureAtlas("player_tex").findRegions("player_walk_right"),
+                Animation.PlayMode.LOOP
+        ));
     }
 
     public void shoot() {
@@ -50,19 +79,46 @@ public class Player extends Entity {
     @Override
     public void update(float delta) {
         attackTimer += delta;
+        if (state != State.STANDING) {
+            animationTimer += delta;
+        } else {
+            animationTimer = 0;
+        }
+
+        if (!getVel().equals(Vector2.Zero)) {
+            state = State.WALKING;
+        } else {
+            state = State.STANDING;
+        }
 
         switch (dir) {
             case DOWN:
-                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_down"));
+                if (state == State.STANDING) {
+                    setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_down"));
+                } else if (state == State.WALKING) {
+                    setTexture(walkingAnimations.get(0).getKeyFrame(animationTimer));
+                }
                 break;
             case UP:
-                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_up"));
+                if (state == State.STANDING) {
+                    setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_up"));
+                } else if (state == State.WALKING) {
+                    setTexture(walkingAnimations.get(1).getKeyFrame(animationTimer));
+                }
                 break;
             case LEFT:
-                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_left"));
+                if (state == State.STANDING) {
+                    setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_left"));
+                } else if (state == State.WALKING) {
+                    setTexture(walkingAnimations.get(2).getKeyFrame(animationTimer));
+                }
                 break;
             case RIGHT:
-                setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_right"));
+                if (state == State.STANDING) {
+                    setTexture(Assets.getInstance().getRegionFromTextureAtlas("player_tex", "player_right"));
+                } else if (state == State.WALKING) {
+                    setTexture(walkingAnimations.get(3).getKeyFrame(animationTimer));
+                }
                 break;
         }
 

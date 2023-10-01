@@ -47,6 +47,10 @@ public class Assets {
         map.put(name, filename);
     }
 
+    public TextureAtlas getTextureAtlas(String name) {
+        return manager.get(map.get(name), TextureAtlas.class);
+    }
+
     public TextureRegion getRegionFromTextureAtlas(String atlas, String region) {
         TextureAtlas textureAtlas = manager.get(map.get(atlas), TextureAtlas.class);
         return textureAtlas.findRegion(region);
